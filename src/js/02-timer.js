@@ -1,24 +1,30 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
+let datePicker = document.querySelector('#datetime-picker');
+
+let startBtn = document.querySelector('[data-start]');
+
+// timer inputs
+let daysTimer = document.querySelector('[data-days]');
+let hoursTimer = document.querySelector('[data-hours]');
+let minutesTimer = document.querySelector('[data-minutes]');
+let secondsTimer = document.querySelector('[data-seconds]');
+
+let msTimer = 0;
+let selectedTime = 0;
+let timerInterval = null;
+
 const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-      selectTimerDate(selectedDates[0]);
-      console.log(convertMs(selectedDates[0]-new Date()));
+    selectedTime = selectedDates[0];
+    selectTimerDate(selectedTime);
     },
   };
-
-let datePicker = document.querySelector('#datetime-picker');
-
-let startBtn = document.querySelector('[data-start]');
-let daysTimer = document.querySelector('[data-days]');
-let hoursTimer = document.querySelector('[data-hours]');
-let minutesTimer = document.querySelector('[data-minutes]');
-let secondsTimer = document.querySelector('[data-seconds]');
 
 // datePicker.addEventListener('input', (e) => {
 //     console.log(e.target.value);
@@ -26,15 +32,20 @@ let secondsTimer = document.querySelector('[data-seconds]');
 
 flatpickr(datePicker, options);
 
+startBtn.addEventListener('click', ()=>{
+    setTimer(convertMs(msTimer));
+    startBtn.disabled=true;
+    datePicker.disabled = true;
+    msTimer = selectedTime - new Date();
+    runTimer()
+});
+
 function selectTimerDate (selectDate) {
     if (selectDate < new Date()) {
         startBtn.disabled=true;
         alert('Please choose a date in the future');
     } else {
         startBtn.disabled = false;
-        datePicker.disabled = true;
-        let timeBefore = convertMs(selectDate-new Date());
-        setTimer(timeBefore);
     }
 };
 
@@ -69,5 +80,20 @@ function addLeadingZero(value) {
         return value.toString().padStart(2,'0');
     } else {
         return value;
+    };
+};
+
+function runTimer() {
+    timerInterval = setInterval(updateTimer,1000);
+};
+
+function updateTimer() {
+    msTimer-=1000;
+    console.log(msTimer);
+    setTimer(convertMs(msTimer));
+    if (msTimer<1000) {
+        clearInterval(timerInterval);
+        datePicker.disabled = false;
+        startBtn.disabled = false;
     };
 };
