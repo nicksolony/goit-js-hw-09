@@ -2,22 +2,17 @@
 let startBtn = document.querySelector('[data-start]');
 let stopBtn = document.querySelector('[data-stop]');
 let body = document.querySelector('body');
-let colorChangeOn = false;
-
-let bgColor = () =>{
-    body.style.backgroundColor=getRandomHexColor();
-    console.log('color change');
-};
+let bgColorChange = null;
 
 
-startBtn.addEventListener('click', (e) => {
-    e.target.disabled = true;
-    console.log(e.target);
-    bgColor;
+startBtn.addEventListener('click', () =>{
+    bgColor();
+    bgColorChange = setInterval(bgColor,1000);
+    startBtn.disabled=true;
 });
 
 stopBtn.addEventListener('click', () =>{
-    console.log('stop');
+    clearInterval(bgColorChange);
     startBtn.disabled = false;
 });
 
@@ -25,6 +20,10 @@ stopBtn.addEventListener('click', () =>{
 function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
   };
+
+function bgColor() {
+    body.style.backgroundColor=getRandomHexColor();
+};
 
 
 
