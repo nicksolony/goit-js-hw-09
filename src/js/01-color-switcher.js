@@ -2,6 +2,7 @@
 let startBtn = document.querySelector('[data-start]');
 let stopBtn = document.querySelector('[data-stop]');
 let body = document.querySelector('body');
+let colorChangeOn = false;
 
 let bgColor = () =>{
     body.style.backgroundColor=getRandomHexColor();
@@ -9,10 +10,15 @@ let bgColor = () =>{
 };
 
 
-startBtn.addEventListener('click',bgColor);
+startBtn.addEventListener('click', (e) => {
+    e.target.disabled = true;
+    console.log(e.target);
+    bgColor;
+});
 
 stopBtn.addEventListener('click', () =>{
     console.log('stop');
+    startBtn.disabled = false;
 });
 
 
