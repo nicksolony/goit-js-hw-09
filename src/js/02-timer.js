@@ -26,17 +26,14 @@ const options = {
     },
   };
 
-// datePicker.addEventListener('input', (e) => {
-//     console.log(e.target.value);
-// })
 
 flatpickr(datePicker, options);
 
 startBtn.addEventListener('click', ()=>{
+    msTimer = selectedTime - new Date();
     setTimer(convertMs(msTimer));
     startBtn.disabled=true;
     datePicker.disabled = true;
-    msTimer = selectedTime - new Date();
     runTimer()
 });
 
@@ -89,7 +86,6 @@ function runTimer() {
 
 function updateTimer() {
     msTimer-=1000;
-    console.log(msTimer);
     setTimer(convertMs(msTimer));
     if (msTimer<1000) {
         clearInterval(timerInterval);
