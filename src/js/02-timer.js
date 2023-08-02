@@ -94,6 +94,5 @@ function updateTimer() {
     if (msTimer<1000) {
         clearInterval(timerInterval);
         datePicker.disabled = false;
-        startBtn.disabled = false;
     };
 };
