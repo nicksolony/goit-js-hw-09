@@ -2,33 +2,48 @@ let delayInput = document.querySelector('input[name=delay]');
 let stepInput = document.querySelector('input[name=step]');
 let amountInput = document.querySelector('input[name=amount]');
 let formEl = document.querySelector('form'); 
-
+let formObj = {};
 
 formEl.addEventListener('submit', (e) => {
 
   e.preventDefault();
-  const form = Array.from(e.target);
-  const formObj = {};
-  form.filter((el)=>el.type==='number').forEach ((input) => {
-    formObj[`${input.name}`]= input.value;
-  })
   
-  console.log(formObj);
+  runPromises(createFormObject(e.target));
 
 })
 
 
+function createFormObject(formData) {
+  const formArray = Array.from(formData);
+  formArray.filter((el)=>el.type==='number').forEach ((input) => {
+    formObj[`${input.name}`]= input.value;
+  })
+  return formObj;
+}
+
+function runPromises(form) {
+  for (let i = 0; i < form.amount; i+=1) {
+    const stepDelay = parseInt(form.delay) + parseInt(i*form.step);
+    createPromise(i+1, stepDelay).
+    then (value => {
+      console.log(value);
+    }).
+    catch (value=>{
+      console.log(value);
+    });  
+  }
+}
 
 
 
-
-function createPromise(position, delay) {
+const createPromise = (position, delay) => {
+  return new Promise ((resolve, reject) => {
   const shouldResolve = Math.random() > 0.3;
   if (shouldResolve) {
-    // Fulfill
+    resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
   } else {
-    // Reject
-  }
+    reject(`❌ Rejected promise ${position} in ${delay}ms`);
+  }})
 };
 
 
