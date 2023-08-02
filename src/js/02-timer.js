@@ -39,10 +39,10 @@ function selectTimerDate (selectDate) {
 };
 
 function setTimer({days,hours,minutes,seconds}) {
-    daysTimer.innerHTML=days;
-    hoursTimer.innerHTML=hours;
-    minutesTimer.innerHTML=minutes;
-    secondsTimer.innerHTML=seconds;
+    daysTimer.innerHTML=addLeadingZero(days);
+    hoursTimer.innerHTML=addLeadingZero(hours);
+    minutesTimer.innerHTML=addLeadingZero(minutes);
+    secondsTimer.innerHTML=addLeadingZero(seconds);
 }
 
 function convertMs(ms) {
@@ -62,4 +62,12 @@ function convertMs(ms) {
     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
   
     return { days, hours, minutes, seconds };
-  }
+  };
+
+function addLeadingZero(value) {
+    if(value<10) {
+        return value.toString().padStart(2,'0');
+    } else {
+        return value;
+    };
+};
