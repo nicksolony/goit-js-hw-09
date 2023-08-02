@@ -17,5 +17,5 @@ datePicker.addEventListener('input', (e) => {
     console.log(e.target.value);
 })
 
-flatpickr(datePicker, {});
+flatpickr(datePicker, options);
 
