@@ -21,5 +21,9 @@
     text-transform: uppercase;
 }
 
+#datetime-picker:disabled {
+    cursor:progress;
+}
+
 
 
