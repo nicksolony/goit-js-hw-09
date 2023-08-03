@@ -1,4 +1,4 @@
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let delayInput = document.querySelector('input[name=delay]');
 let stepInput = document.querySelector('input[name=step]');
@@ -28,12 +28,12 @@ function runPromises(form) {
     const stepDelay = parseInt(form.delay) + parseInt(i*form.step);
     createPromise(i+1, stepDelay).
     then (value => {
-      Notiflix.Notify.success(value,{
+      Notify.success(value,{
         useIcon: false
       });
     }).
     catch (value=>{
-      Notiflix.Notify.failure(value,{
+      Notify.failure(value,{
         useIcon: false
       });
     });  

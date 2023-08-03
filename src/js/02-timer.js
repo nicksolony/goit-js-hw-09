@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 
@@ -43,7 +43,7 @@ startBtn.addEventListener('click', ()=>{
 function selectTimerDate (selectDate) {
     if (selectDate < new Date()) {
         startBtn.disabled=true;
-        Notiflix.Notify.failure('Please choose a date in the future');
+        Notify.failure('Please choose a date in the future');
 
     } else {
         startBtn.disabled = false;
