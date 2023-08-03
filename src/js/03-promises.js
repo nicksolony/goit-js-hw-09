@@ -28,10 +28,14 @@ function runPromises(form) {
     const stepDelay = parseInt(form.delay) + parseInt(i*form.step);
     createPromise(i+1, stepDelay).
     then (value => {
-      Notiflix.Notify.success(value);
+      Notiflix.Notify.success(value,{
+        useIcon: false
+      });
     }).
     catch (value=>{
-      Notiflix.Notify.failure(value);
+      Notiflix.Notify.failure(value,{
+        useIcon: false
+      });
     });  
   };
 };
