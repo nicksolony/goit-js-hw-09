@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 let delayInput = document.querySelector('input[name=delay]');
 let stepInput = document.querySelector('input[name=step]');
 let amountInput = document.querySelector('input[name=amount]');
@@ -26,10 +28,10 @@ function runPromises(form) {
     const stepDelay = parseInt(form.delay) + parseInt(i*form.step);
     createPromise(i+1, stepDelay).
     then (value => {
-      console.log(value);
+      Notiflix.Notify.success(value);
     }).
     catch (value=>{
-      console.log(value);
+      Notiflix.Notify.failure(value);
     });  
   };
 };
